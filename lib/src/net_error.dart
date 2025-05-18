@@ -1,3 +1,4 @@
+import '../flutter_net.dart';
 // net_error_handler.dart
 
 abstract class NetErrorHandler {

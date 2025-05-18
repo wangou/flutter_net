@@ -8,5 +8,6 @@ abstract class NetDecoder {
   ///  [responseType] 解码类型
   ///  [T] BaseNetworkModel的实现
   ///  [K] 返回类型
-  K decode<T, K>({required Response<dynamic> response,  T? decodeType});
+  K? decode<T, K>(
+      {required Response<dynamic> response, T? decodeType});
 }

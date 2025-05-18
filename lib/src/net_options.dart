@@ -1,5 +1,6 @@
 import 'package:flutter_nb_net/src/net_error.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
 import '../flutter_net.dart';
 import 'default_net_decoder.dart';
 
@@ -16,7 +17,9 @@ class NetOptions {
 
   Dio get dio => _dio;
 
-  NetErrorHandler? netErrorHandler;
+  NetErrorHandler? _netErrorHandler;
+
+  NetErrorHandler? get netErrorHandler => _netErrorHandler;
 
   NetDecoder _httpDecoder = DefaultNetDecoder.getInstance();
 
@@ -85,6 +88,12 @@ class NetOptions {
     return instance;
   }
 
+  /// 错误处理
+  NetOptions setErrorHandler(NetErrorHandler errorHandler) {
+    _netErrorHandler = errorHandler;
+    return instance;
+  }
+
   /// 配置网络请求并初始化
   void create() {
     var httpConfig = _httpConfigBuilder.create();
@@ -99,8 +108,7 @@ class NetOptions {
           responseHeader: false,
           error: true,
           compact: true,
-          maxWidth: 90
-      ));
+          maxWidth: 90));
     }
     _dio.options = BaseOptions(
         baseUrl: httpConfig.baseUrl ?? '',
