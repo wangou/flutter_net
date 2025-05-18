@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
 import 'package:flutter/foundation.dart';
 import '../flutter_net.dart';
 import 'network_connectivity.dart';
@@ -252,6 +254,7 @@ Future<Result<K>> _execute<T, K>(
     return Result.failure(
         msg: e.message ?? '', code: e.response?.statusCode ?? -1);
   } on NetException catch (e) {
+    NetOptions.instance.netErrorHandler?.onError(e.message,e.code);
     if (kDebugMode) print("$path => NetException${e.toString()}");
     return Result.failure(msg: e.message, code: e.code);
   } on TypeError catch (e) {

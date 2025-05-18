@@ -1,3 +1,4 @@
+import 'package:flutter_nb_net/src/net_error.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../flutter_net.dart';
 import 'default_net_decoder.dart';
@@ -14,6 +15,8 @@ class NetOptions {
   final Dio _dio = Dio();
 
   Dio get dio => _dio;
+
+  NetErrorHandler? netErrorHandler;
 
   NetDecoder _httpDecoder = DefaultNetDecoder.getInstance();
 
